@@ -153,7 +153,7 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - fix for Loss Component app */
+    /* File uploader styling */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
@@ -225,8 +225,8 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader section with clear white text
-st.markdown('<p style="color: #000000; font-family: Calisto MT; font-size: 11pt; margin-bottom: 0.5rem;">Upload File</p>', unsafe_allow_html=True)
+# File uploader section - no yellow container
+st.markdown("##### Upload File")
 uploaded_file = st.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
 if uploaded_file is not None:
