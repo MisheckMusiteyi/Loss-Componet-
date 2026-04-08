@@ -21,7 +21,7 @@ st.markdown("""
     /* Apply Calisto MT to all text elements */
     body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
     .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
-    .stButton button, .stDownloadButton button,
+    .stButton button, .stDownloadButton button, .stFileUploader label,
     .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
     .stProgress, .stToast, .stSidebar, .stMetric, .stExpander {
         font-family: 'Calisto MT', serif !important;
@@ -153,29 +153,10 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - white text in black container */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
         padding: 1rem;
-        background-color: #000000;
-    }
-    .stFileUploader button {
-        background-color: #D4AF37 !important;
-        color: #000000 !important;
-        font-family: 'Calisto MT', serif !important;
-    }
-    .stFileUploader button:hover {
-        background-color: #B8960F !important;
-        color: #FFFFFF !important;
-    }
-    .stFileUploader p {
-        color: #FFFFFF !important;
-        font-family: 'Calisto MT', serif !important;
-    }
-    .stFileUploader label {
-        color: #D4AF37 !important;
-        font-family: 'Calisto MT', serif !important;
     }
     
     .stMultiSelect [data-baseweb="select"], 
@@ -228,9 +209,8 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader
-st.markdown("#### Upload File")
-uploaded_file = st.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
+# File uploader (same as OCR app)
+uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
     try:
