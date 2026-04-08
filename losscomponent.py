@@ -207,8 +207,9 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader (now accepts CSV and Excel)
-uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
+# File uploader
+st.markdown("#### Select File")
+uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
 if uploaded_file is not None:
     try:
@@ -270,15 +271,13 @@ if uploaded_file is not None:
                 if i + j < len(field_list):
                     field = field_list[i + j]
                     with cols[j]:
-                        # Extract emoji and description
-                        display_text = required_fields[field]
-                        emoji = display_text.split(' - ')[0]
-                        description = display_text.split(' - ')[1]
+                        description = required_fields[field]
+                        field_name, field_desc = description.split(' - ', 1)
                         
                         st.markdown(f"""
                         <div class="required-container">
-                            <h3>{emoji} {field}</h3>
-                            <p>{description}</p>
+                            <h3>{field}</h3>
+                            <p>{field_desc}</p>
                         </div>
                         """, unsafe_allow_html=True)
                         
@@ -416,7 +415,7 @@ if uploaded_file is not None:
         file_name = f"{safe_client}_Loss_Component_Results.xlsx" if safe_client else "Loss_Component_Results.xlsx"
         
         st.download_button(
-            label="📥 Download results as Excel",
+            label="Download results as Excel",
             data=output,
             file_name=file_name,
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -442,7 +441,7 @@ st.markdown('</div>', unsafe_allow_html=True)  # close main-container
 # ---------- Footer ----------
 st.markdown("""
 <div class="footer">
-    <p>© 2026 African Actuarial Consultants. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    <p>2026 African Actuarial Consultants. All rights reserved. | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
     <p style="margin-top: 0.5rem; font-size: 0.9rem;">Powered by Vanababa</p>
 </div>
 """, unsafe_allow_html=True)
