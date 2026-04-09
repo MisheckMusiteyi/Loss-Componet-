@@ -10,25 +10,24 @@ st.set_page_config(page_title="Loss Component Calculator", layout="wide")
 # ---------- CUSTOM CSS (African Actuarial Consultants theme) ----------
 st.markdown("""
 <style>
-    /* Apply Calisto MT to all text elements EXCEPT file uploader internals */
-    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
-    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
-    .stButton button, .stDownloadButton button, .stFileUploader label,
-    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
-    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
-    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
-    .stDataFrame, .dataframe, .stTable,
-    .header, .nav-links a, .hero h1, .hero p, .required-container h3, 
-    .required-container p, .card h3, .footer, .footer a, .footer p {
-        font-family: 'Calisto MT', serif !important;
-    }
-    
-    /* Global */
+    /* Global - NO font styling on div/span to avoid file uploader issues */
     .stApp {
         background-color: #FFFFFF;
         color: #000000;
-        font-size: 11pt;
         font-family: 'Calisto MT', serif;
+        font-size: 11pt;
+    }
+    
+    /* Apply Calisto MT ONLY to specific text elements - NOT to div/span */
+    body, p, h1, h2, h3, h4, h5, h6, label, .stMarkdown, 
+    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
+    .stButton button, .stDownloadButton button,
+    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
+    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+    .header, .nav-links a, .hero h1, .hero p, .required-container h3, 
+    .required-container p, .card h3, .footer, .footer a, .footer p {
+        font-family: 'Calisto MT', serif !important;
     }
     
     /* Header / Navigation */
@@ -134,7 +133,7 @@ st.markdown("""
         text-decoration: none;
     }
     
-    /* Streamlit element overrides */
+    /* Buttons */
     .stButton > button, .stDownloadButton > button {
         background-color: #D4AF37;
         color: #000000;
@@ -150,7 +149,7 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - NO font changes here to avoid overlay */
+    /* File uploader - MINIMAL STYLING, NO FONT CHANGES */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
@@ -214,7 +213,7 @@ with col1:
 with col2:
     pass
 
-# SIMPLE FILE UPLOADER - WORKING PERFECTLY
+# FILE UPLOADER - NO CUSTOM CSS AFFECTING IT
 uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
