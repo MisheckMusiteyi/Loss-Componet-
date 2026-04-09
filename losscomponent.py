@@ -153,12 +153,37 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - Clean white box */
+    /* Custom file upload container styling */
+    .custom-upload-container {
+        border: 2px dashed #D4AF37;
+        border-radius: 8px;
+        padding: 2rem;
+        background-color: #F9F9F9;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .upload-icon {
+        font-size: 48px;
+        color: #D4AF37;
+        margin-bottom: 1rem;
+    }
+    .upload-text {
+        color: #000000;
+        font-family: 'Calisto MT', serif;
+        font-size: 14pt;
+        margin-bottom: 0.5rem;
+    }
+    .upload-hint {
+        color: #666666;
+        font-family: 'Calisto MT', serif;
+        font-size: 10pt;
+    }
+    
+    /* Hide default file uploader styling */
     .stFileUploader {
-        border: 2px dashed #D4AF37 !important;
-        border-radius: 8px !important;
-        padding: 2rem !important;
-        background-color: #F9F9F9 !important;
+        border: none !important;
+        padding: 0 !important;
+        background-color: transparent !important;
     }
     .stFileUploader button {
         background-color: #D4AF37 !important;
@@ -167,29 +192,19 @@ st.markdown("""
         border: none !important;
         border-radius: 4px !important;
         padding: 0.5rem 1rem !important;
+        margin-top: 1rem !important;
     }
     .stFileUploader button:hover {
         background-color: #B8960F !important;
         color: #FFFFFF !important;
     }
     .stFileUploader p {
-        color: #000000 !important;
-        font-family: 'Calisto MT', serif !important;
-        font-size: 11pt !important;
+        display: none !important;
     }
-    /* Hide ALL labels and extra text */
     .stFileUploader label {
         display: none !important;
     }
     .stFileUploader small {
-        display: none !important;
-    }
-    /* Hide the first child text that says "upload" */
-    .stFileUploader > div:first-child {
-        display: none !important;
-    }
-    /* Hide any span that might contain "upload" */
-    .stFileUploader span:first-child {
         display: none !important;
     }
     
@@ -243,12 +258,17 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader section - clean header only
-st.markdown('<p style="color: #000000; font-family: Calisto MT; font-size: 11pt; margin-bottom: 0.5rem;">Upload File</p>', unsafe_allow_html=True)
+# Custom file upload section with icon
+st.markdown("""
+<div class="custom-upload-container">
+    <div class="upload-icon">📁</div>
+    <div class="upload-text">Upload File</div>
+    <div class="upload-hint">CSV, XLSX, XLS (Max 200MB)</div>
+</div>
+""", unsafe_allow_html=True)
 
-# Use a container to wrap the file uploader and add custom text
-with st.container():
-    uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
+# Hidden file uploader - the actual functionality
+uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
 if uploaded_file is not None:
     try:
