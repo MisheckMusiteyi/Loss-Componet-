@@ -153,10 +153,39 @@ st.markdown("""
         color: #FFFFFF;
     }
     
+    /* File uploader styling - FIXED */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
         padding: 1rem;
+        background-color: #000000;
+    }
+    .stFileUploader button {
+        background-color: #D4AF37 !important;
+        color: #000000 !important;
+        font-family: 'Calisto MT', serif !important;
+        border: none !important;
+    }
+    .stFileUploader button:hover {
+        background-color: #B8960F !important;
+        color: #FFFFFF !important;
+    }
+    /* Make all text inside file uploader WHITE */
+    .stFileUploader p {
+        color: #FFFFFF !important;
+        font-family: 'Calisto MT', serif !important;
+    }
+    /* Hide the first "upload" text that appears */
+    .stFileUploader .e1ewe7hr3 {
+        display: none !important;
+    }
+    /* Hide the label completely */
+    .stFileUploader label {
+        display: none !important;
+    }
+    /* Hide any small text like "200MB per file" that might duplicate */
+    .stFileUploader small {
+        display: none !important;
     }
     
     .stMultiSelect [data-baseweb="select"], 
@@ -209,8 +238,9 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader - SIMPLE AND WORKING (same as OCR app)
-uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
+# File uploader - Clean and simple
+st.markdown('<p style="color: #000000; font-family: Calisto MT; font-size: 11pt; margin-bottom: 0.5rem;">Upload File</p>', unsafe_allow_html=True)
+uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
 if uploaded_file is not None:
     try:
