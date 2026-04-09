@@ -304,6 +304,7 @@ if uploaded_file is not None:
 
         df_processed = df.rename(columns=mapped_columns)
 
+        # --- Calculate derived fields ---
         df_processed["Gross_Actual_Incurred_Claims"] = (
             df_processed["Gross_Paid_Claims"] +
             df_processed["Gross_Closing_IBNR"] +
@@ -317,59 +318,67 @@ if uploaded_file is not None:
             df_processed["Gross_Opening_UPR"] -
             df_processed["Gross_Closing_UPR"]
         )
-        
-        df_processed["Loss_Ratio"] = np.where(
-            df_processed["Gross_Earned_Premiums"] != 0,
-            df_processed["Gross_Actual_Incurred_Claims"] / df_processed["Gross_Earned_Premiums"],
-            np.nan
-        )
-        
-        df_processed["Commission_Ratio"] = np.where(
-            df_processed["Gross_Written_Premiums"] != 0,
-            df_processed["Gross_Commission_Paid"] / df_processed["Gross_Written_Premiums"],
-            np.nan
-        )
-        
-        df_processed["Expense_Ratio"] = np.where(
-            df_processed["Gross_Written_Premiums"] != 0,
-            df_processed["Gross_Attributable_Expenses"] / df_processed["Gross_Written_Premiums"],
-            np.nan
-        )
-        
-        risk_adjustment_denom = df_processed["Gross_Closing_IBNR"] + df_processed["Gross_Closing_OCR"]
-        df_processed["Risk_Adjustment_Ratio"] = np.where(
-            risk_adjustment_denom != 0,
-            df_processed["Gross_Risk_Adjustment"] / risk_adjustment_denom,
-            np.nan
-        )
-        
-        df_processed["Combined_Ratio"] = (
-            df_processed["Loss_Ratio"] +
-            df_processed["Commission_Ratio"] +
-            df_processed["Expense_Ratio"] +
-            df_processed["Risk_Adjustment_Ratio"]
-        )
-        
-        df_processed["Loss_Component"] = np.maximum(df_processed["Combined_Ratio"] - 1, 0) * df_processed["Gross_Closing_UPR"]
-        
+
+        # --- Aggregate by Line of Business (using sums, not means) ---
         result = df_processed.groupby('Line_of_business').agg({
             'Gross_Written_Premiums': 'sum',
             'Gross_Earned_Premiums': 'sum',
             'Gross_Actual_Incurred_Claims': 'sum',
-            'Loss_Ratio': 'mean',
-            'Commission_Ratio': 'mean',
-            'Expense_Ratio': 'mean',
-            'Risk_Adjustment_Ratio': 'mean',
-            'Combined_Ratio': 'mean',
-            'Loss_Component': 'sum'
+            'Gross_Commission_Paid': 'sum',
+            'Gross_Attributable_Expenses': 'sum',
+            'Gross_Risk_Adjustment': 'sum',
+            'Gross_Closing_IBNR': 'sum',
+            'Gross_Closing_OCR': 'sum',
+            'Gross_Closing_UPR': 'sum'
         }).reset_index()
-        
+
+        # --- Calculate ratios from totals (CORRECT METHOD) ---
+        result['Loss_Ratio'] = np.where(
+            result['Gross_Earned_Premiums'] != 0,
+            result['Gross_Actual_Incurred_Claims'] / result['Gross_Earned_Premiums'],
+            np.nan
+        )
+
+        result['Commission_Ratio'] = np.where(
+            result['Gross_Written_Premiums'] != 0,
+            result['Gross_Commission_Paid'] / result['Gross_Written_Premiums'],
+            np.nan
+        )
+
+        result['Expense_Ratio'] = np.where(
+            result['Gross_Written_Premiums'] != 0,
+            result['Gross_Attributable_Expenses'] / result['Gross_Written_Premiums'],
+            np.nan
+        )
+
+        risk_adjustment_denom = result['Gross_Closing_IBNR'] + result['Gross_Closing_OCR']
+        result['Risk_Adjustment_Ratio'] = np.where(
+            risk_adjustment_denom != 0,
+            result['Gross_Risk_Adjustment'] / risk_adjustment_denom,
+            np.nan
+        )
+
+        result['Combined_Ratio'] = (
+            result['Loss_Ratio'] +
+            result['Commission_Ratio'] +
+            result['Expense_Ratio'] +
+            result['Risk_Adjustment_Ratio']
+        )
+
+        result['Loss_Component'] = np.maximum(result['Combined_Ratio'] - 1, 0) * result['Gross_Closing_UPR']
+
+        # --- Rename columns for clarity ---
         result = result.rename(columns={
             'Gross_Written_Premiums': 'Total_Written_Premiums',
             'Gross_Earned_Premiums': 'Total_Earned_Premiums',
-            'Gross_Actual_Incurred_Claims': 'Total_Incurred_Claims'
+            'Gross_Actual_Incurred_Claims': 'Total_Incurred_Claims',
+            'Gross_Commission_Paid': 'Total_Commission_Paid',
+            'Gross_Attributable_Expenses': 'Total_Expenses',
+            'Gross_Risk_Adjustment': 'Total_Risk_Adjustment',
+            'Gross_Closing_UPR': 'Closing_UPR'
         })
-        
+
+        # --- Display results ---
         st.markdown('<div class="card">', unsafe_allow_html=True)
         st.subheader("Loss Component Results by Line of Business")
         
@@ -384,6 +393,7 @@ if uploaded_file is not None:
         st.dataframe(display_result, use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
         
+        # --- Prepare Excel download ---
         output = BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             result.to_excel(writer, index=False, sheet_name='Loss_Component_Results')
@@ -399,6 +409,7 @@ if uploaded_file is not None:
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
         
+        # --- Optional: Show raw data with all calculations ---
         with st.expander("View Detailed Calculations (all rows)"):
             detail_display = df_processed.copy()
             for col in detail_display.columns:
