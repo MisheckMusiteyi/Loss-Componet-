@@ -153,7 +153,7 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - fix overlapping and text color */
+    /* File uploader styling - COMPLETELY HIDE DEFAULT LABEL */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
@@ -174,7 +174,19 @@ st.markdown("""
         color: #FFFFFF !important;
         font-family: 'Calisto MT', serif !important;
     }
+    /* Hide all labels and extra text in file uploader */
     .stFileUploader label {
+        display: none !important;
+    }
+    /* Hide the "Manage a" text */
+    .stFileUploader small {
+        display: none !important;
+    }
+    /* Hide any additional spans that might contain "Upload" */
+    .stFileUploader span {
+        font-size: 0 !important;
+    }
+    .stFileUploader .e1ewe7hr3 {
         display: none !important;
     }
     
@@ -228,9 +240,9 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader with custom label
+# File uploader section - clean custom header
 st.markdown('<p style="color: #000000; font-family: Calisto MT; font-size: 11pt; margin-bottom: 0.5rem;">Upload File</p>', unsafe_allow_html=True)
-uploaded_file = st.file_uploader("Choose a CSV or Excel file", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
+uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
 if uploaded_file is not None:
     try:
