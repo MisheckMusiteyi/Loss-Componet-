@@ -153,40 +153,36 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - COMPLETELY HIDE DEFAULT LABEL */
+    /* File uploader styling - Clean white/grey box with gold dashed border */
     .stFileUploader {
-        border: 2px dashed #D4AF37;
-        border-radius: 5px;
-        padding: 1rem;
-        background-color: #000000;
+        border: 2px dashed #D4AF37 !important;
+        border-radius: 8px !important;
+        padding: 2rem !important;
+        background-color: #F9F9F9 !important;
     }
     .stFileUploader button {
         background-color: #D4AF37 !important;
         color: #000000 !important;
         font-family: 'Calisto MT', serif !important;
         border: none !important;
+        border-radius: 4px !important;
+        padding: 0.5rem 1rem !important;
     }
     .stFileUploader button:hover {
         background-color: #B8960F !important;
         color: #FFFFFF !important;
     }
     .stFileUploader p {
-        color: #FFFFFF !important;
+        color: #000000 !important;
         font-family: 'Calisto MT', serif !important;
+        font-size: 11pt !important;
     }
-    /* Hide all labels and extra text in file uploader */
+    /* Hide the default label that causes overlap */
     .stFileUploader label {
         display: none !important;
     }
     /* Hide the "Manage a" text */
     .stFileUploader small {
-        display: none !important;
-    }
-    /* Hide any additional spans that might contain "Upload" */
-    .stFileUploader span {
-        font-size: 0 !important;
-    }
-    .stFileUploader .e1ewe7hr3 {
         display: none !important;
     }
     
@@ -240,7 +236,7 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader section - clean custom header
+# File uploader section - clean header
 st.markdown('<p style="color: #000000; font-family: Calisto MT; font-size: 11pt; margin-bottom: 0.5rem;">Upload File</p>', unsafe_allow_html=True)
 uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
