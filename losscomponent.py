@@ -18,16 +18,6 @@ st.markdown("""
         font-size: 11pt;
     }
     
-    /* Apply Calisto MT to all text elements - WITHOUT breaking file uploader */
-    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
-    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
-    .stButton button, .stDownloadButton button, .stFileUploader label,
-    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
-    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
-    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-        font-family: 'Calisto MT', serif !important;
-    }
-    
     /* Header / Navigation */
     .header {
         background-color: #000000;
@@ -138,7 +128,7 @@ st.markdown("""
         font-family: 'Calisto MT', serif;
     }
     
-    /* Streamlit element overrides */
+    /* Buttons */
     .stButton > button, .stDownloadButton > button {
         background-color: #D4AF37;
         color: #000000;
@@ -152,26 +142,6 @@ st.markdown("""
     .stButton > button:hover, .stDownloadButton > button:hover {
         background-color: #B8960F;
         color: #FFFFFF;
-    }
-    
-    /* File uploader styling - KEEP SIMPLE */
-    .stFileUploader {
-        border: 2px dashed #D4AF37;
-        border-radius: 5px;
-        padding: 1rem;
-    }
-    .stFileUploader button {
-        background-color: #D4AF37 !important;
-        color: #FFFFFF !important;
-        border: none !important;
-        font-family: 'Calisto MT', serif !important;
-    }
-    .stFileUploader button:hover {
-        background-color: #B8960F !important;
-        color: #FFFFFF !important;
-    }
-    .stFileUploader p {
-        font-family: 'Calisto MT', serif !important;
     }
     
     .stMultiSelect [data-baseweb="select"], 
@@ -188,6 +158,16 @@ st.markdown("""
     
     .stSelectbox div[data-baseweb="select"] {
         width: 100%;
+    }
+    
+    /* Force Calisto MT on ALL text elements */
+    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
+    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
+    .stButton button, .stDownloadButton button, .stFileUploader label,
+    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
+    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        font-family: 'Calisto MT', serif !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -222,7 +202,7 @@ with col1:
 with col2:
     pass
 
-# SIMPLE FILE UPLOADER - WORKING PERFECTLY
+# SIMPLE FILE UPLOADER - NO CUSTOM CSS AT ALL
 uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
