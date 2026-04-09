@@ -21,7 +21,7 @@ st.markdown("""
     /* Apply Calisto MT to all text elements */
     body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
     .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
-    .stButton button, .stDownloadButton button,
+    .stButton button, .stDownloadButton button, .stFileUploader label,
     .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
     .stProgress, .stToast, .stSidebar, .stMetric, .stExpander {
         font-family: 'Calisto MT', serif !important;
@@ -153,59 +153,10 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* Custom file upload container styling */
-    .custom-upload-container {
-        border: 2px dashed #D4AF37;
-        border-radius: 8px;
-        padding: 2rem;
-        background-color: #F9F9F9;
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-    .upload-icon {
-        font-size: 48px;
-        color: #D4AF37;
-        margin-bottom: 1rem;
-    }
-    .upload-text {
-        color: #000000;
-        font-family: 'Calisto MT', serif;
-        font-size: 14pt;
-        margin-bottom: 0.5rem;
-    }
-    .upload-hint {
-        color: #666666;
-        font-family: 'Calisto MT', serif;
-        font-size: 10pt;
-    }
-    
-    /* Hide default file uploader styling */
     .stFileUploader {
-        border: none !important;
-        padding: 0 !important;
-        background-color: transparent !important;
-    }
-    .stFileUploader button {
-        background-color: #D4AF37 !important;
-        color: #000000 !important;
-        font-family: 'Calisto MT', serif !important;
-        border: none !important;
-        border-radius: 4px !important;
-        padding: 0.5rem 1rem !important;
-        margin-top: 1rem !important;
-    }
-    .stFileUploader button:hover {
-        background-color: #B8960F !important;
-        color: #FFFFFF !important;
-    }
-    .stFileUploader p {
-        display: none !important;
-    }
-    .stFileUploader label {
-        display: none !important;
-    }
-    .stFileUploader small {
-        display: none !important;
+        border: 2px dashed #D4AF37;
+        border-radius: 5px;
+        padding: 1rem;
     }
     
     .stMultiSelect [data-baseweb="select"], 
@@ -258,17 +209,8 @@ with col2:
     # empty for spacing
     pass
 
-# Custom file upload section with icon
-st.markdown("""
-<div class="custom-upload-container">
-    <div class="upload-icon">📁</div>
-    <div class="upload-text">Upload File</div>
-    <div class="upload-hint">CSV, XLSX, XLS (Max 200MB)</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Hidden file uploader - the actual functionality
-uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
+# File uploader - SIMPLE AND WORKING (same as OCR app)
+uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
     try:
