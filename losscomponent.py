@@ -10,12 +10,26 @@ st.set_page_config(page_title="Loss Component Calculator", layout="wide")
 # ---------- CUSTOM CSS (African Actuarial Consultants theme) ----------
 st.markdown("""
 <style>
-    /* Global */
+    /* Calisto MT Font - Applied to all text elements */
+    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
+    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
+    .stButton button, .stDownloadButton button, .stFileUploader label,
+    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
+    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+    .stDataFrame, .dataframe, .stTable {
+        font-family: 'Calisto MT', serif !important;
+    }
+    
     .stApp {
-        background-color: #FFFFFF;
-        color: #000000;
         font-family: 'Calisto MT', serif;
-        font-size: 11pt;
+    }
+    
+    /* Your working file uploader button */
+    .stFileUploader button {
+        background-color: #D4AF37 !important;
+        color: #FFFFFF !important;
+        border: none !important;
     }
     
     /* Header / Navigation */
@@ -159,16 +173,6 @@ st.markdown("""
     .stSelectbox div[data-baseweb="select"] {
         width: 100%;
     }
-    
-    /* Force Calisto MT on ALL text elements */
-    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
-    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
-    .stButton button, .stDownloadButton button, .stFileUploader label,
-    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
-    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
-    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
-        font-family: 'Calisto MT', serif !important;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -202,7 +206,7 @@ with col1:
 with col2:
     pass
 
-# SIMPLE FILE UPLOADER - NO CUSTOM CSS AT ALL
+# SIMPLE FILE UPLOADER - WORKING PERFECTLY
 uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
