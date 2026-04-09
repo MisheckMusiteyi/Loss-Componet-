@@ -10,11 +10,14 @@ st.set_page_config(page_title="Loss Component Calculator", layout="wide")
 # ---------- CUSTOM CSS (African Actuarial Consultants theme) ----------
 st.markdown("""
 <style>
-    /* Global */
+    /* Global - Force Calisto MT on ALL elements */
+    * {
+        font-family: 'Calisto MT', serif !important;
+    }
+    
     .stApp {
         background-color: #FFFFFF;
         color: #000000;
-        font-family: 'Calisto MT', serif;
         font-size: 11pt;
     }
     
@@ -136,7 +139,7 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - FINAL FIX */
+    /* File uploader styling */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
@@ -166,6 +169,15 @@ st.markdown("""
     
     .stSelectbox div[data-baseweb="select"] {
         width: 100%;
+    }
+    
+    /* Ensure all text elements use Calisto MT */
+    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
+    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
+    .stButton button, .stDownloadButton button, .stFileUploader label,
+    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
+    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander {
+        font-family: 'Calisto MT', serif !important;
     }
 </style>
 """, unsafe_allow_html=True)
