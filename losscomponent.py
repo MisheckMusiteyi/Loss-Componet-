@@ -136,10 +136,20 @@ st.markdown("""
         color: #FFFFFF;
     }
     
+    /* File uploader styling - FINAL FIX */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
         padding: 1rem;
+    }
+    .stFileUploader button {
+        background-color: #D4AF37 !important;
+        color: #FFFFFF !important;
+        border: none !important;
+    }
+    .stFileUploader button:hover {
+        background-color: #B8960F !important;
+        color: #FFFFFF !important;
     }
     
     .stMultiSelect [data-baseweb="select"], 
@@ -190,7 +200,7 @@ with col1:
 with col2:
     pass
 
-# SIMPLE FILE UPLOADER - EXACTLY LIKE OCR APP
+# SIMPLE FILE UPLOADER - WORKING PERFECTLY
 uploaded_file = st.file_uploader("Choose a file", type=["csv", "xlsx", "xls"])
 
 if uploaded_file is not None:
