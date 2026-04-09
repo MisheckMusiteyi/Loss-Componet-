@@ -10,26 +10,12 @@ st.set_page_config(page_title="Loss Component Calculator", layout="wide")
 # ---------- CUSTOM CSS (African Actuarial Consultants theme) ----------
 st.markdown("""
 <style>
-    /* Calisto MT Font - Applied to all text elements */
-    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
-    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
-    .stButton button, .stDownloadButton button, .stFileUploader label,
-    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
-    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
-    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
-    .stDataFrame, .dataframe, .stTable {
-        font-family: 'Calisto MT', serif !important;
-    }
-    
+    /* Global */
     .stApp {
+        background-color: #FFFFFF;
+        color: #000000;
         font-family: 'Calisto MT', serif;
-    }
-    
-    /* Your working file uploader button */
-    .stFileUploader button {
-        background-color: #D4AF37 !important;
-        color: #FFFFFF !important;
-        border: none !important;
+        font-size: 11pt;
     }
     
     /* Header / Navigation */
@@ -47,7 +33,6 @@ st.markdown("""
         text-decoration: none;
         font-weight: 500;
         transition: color 0.3s;
-        font-family: 'Calisto MT', serif;
     }
     .nav-links a:hover {
         color: #D4AF37;
@@ -65,13 +50,11 @@ st.markdown("""
         color: #D4AF37;
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
-        font-family: 'Calisto MT', serif;
     }
     .hero p {
         font-size: 1.2rem;
         max-width: 800px;
         margin: 0 auto;
-        font-family: 'Calisto MT', serif;
     }
     
     /* Main container */
@@ -100,14 +83,12 @@ st.markdown("""
         margin-bottom: 0.5rem;
         font-size: 1.1rem;
         font-weight: bold;
-        font-family: 'Calisto MT', serif;
     }
     .required-container p {
         color: #666666;
         font-size: 0.8rem;
         margin-bottom: 0;
         line-height: 1.3;
-        font-family: 'Calisto MT', serif;
     }
     
     /* Cards */
@@ -124,7 +105,6 @@ st.markdown("""
         margin-top: 0;
         border-bottom: 2px solid #D4AF37;
         padding-bottom: 0.5rem;
-        font-family: 'Calisto MT', serif;
     }
     
     /* Footer */
@@ -139,10 +119,9 @@ st.markdown("""
     .footer a {
         color: #D4AF37;
         text-decoration: none;
-        font-family: 'Calisto MT', serif;
     }
     
-    /* Buttons */
+    /* Streamlit element overrides */
     .stButton > button, .stDownloadButton > button {
         background-color: #D4AF37;
         color: #000000;
@@ -151,11 +130,26 @@ st.markdown("""
         font-weight: bold;
         padding: 0.5rem 1rem;
         transition: all 0.3s;
-        font-family: 'Calisto MT', serif !important;
     }
     .stButton > button:hover, .stDownloadButton > button:hover {
         background-color: #B8960F;
         color: #FFFFFF;
+    }
+    
+    /* File uploader styling - FINAL FIX */
+    .stFileUploader {
+        border: 2px dashed #D4AF37;
+        border-radius: 5px;
+        padding: 1rem;
+    }
+    .stFileUploader button {
+        background-color: #D4AF37 !important;
+        color: #FFFFFF !important;
+        border: none !important;
+    }
+    .stFileUploader button:hover {
+        background-color: #B8960F !important;
+        color: #FFFFFF !important;
     }
     
     .stMultiSelect [data-baseweb="select"], 
