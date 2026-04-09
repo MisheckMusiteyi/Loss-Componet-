@@ -10,8 +10,16 @@ st.set_page_config(page_title="Loss Component Calculator", layout="wide")
 # ---------- CUSTOM CSS (African Actuarial Consultants theme) ----------
 st.markdown("""
 <style>
-    /* FORCE CALISTO MT ON ALL TEXT ELEMENTS */
-    * {
+    /* Apply Calisto MT to all text elements EXCEPT file uploader internals */
+    body, p, h1, h2, h3, h4, h5, h6, div, span, label, .stMarkdown, 
+    .stTextInput label, .stDateInput label, .stSelectbox label, .stMultiSelect label,
+    .stButton button, .stDownloadButton button, .stFileUploader label,
+    .stAlert, .stInfo, .stWarning, .stError, .stSuccess, .stSpinner, 
+    .stProgress, .stToast, .stSidebar, .stMetric, .stExpander,
+    .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3,
+    .stDataFrame, .dataframe, .stTable,
+    .header, .nav-links a, .hero h1, .hero p, .required-container h3, 
+    .required-container p, .card h3, .footer, .footer a, .footer p {
         font-family: 'Calisto MT', serif !important;
     }
     
@@ -20,6 +28,7 @@ st.markdown("""
         background-color: #FFFFFF;
         color: #000000;
         font-size: 11pt;
+        font-family: 'Calisto MT', serif;
     }
     
     /* Header / Navigation */
@@ -134,13 +143,14 @@ st.markdown("""
         font-weight: bold;
         padding: 0.5rem 1rem;
         transition: all 0.3s;
+        font-family: 'Calisto MT', serif !important;
     }
     .stButton > button:hover, .stDownloadButton > button:hover {
         background-color: #B8960F;
         color: #FFFFFF;
     }
     
-    /* File uploader styling */
+    /* File uploader styling - NO font changes here to avoid overlay */
     .stFileUploader {
         border: 2px dashed #D4AF37;
         border-radius: 5px;
