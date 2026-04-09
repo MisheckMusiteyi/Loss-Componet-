@@ -153,7 +153,7 @@ st.markdown("""
         color: #FFFFFF;
     }
     
-    /* File uploader styling - Clean white/grey box with gold dashed border */
+    /* File uploader styling - Clean white box */
     .stFileUploader {
         border: 2px dashed #D4AF37 !important;
         border-radius: 8px !important;
@@ -177,12 +177,19 @@ st.markdown("""
         font-family: 'Calisto MT', serif !important;
         font-size: 11pt !important;
     }
-    /* Hide the default label that causes overlap */
+    /* Hide ALL labels and extra text */
     .stFileUploader label {
         display: none !important;
     }
-    /* Hide the "Manage a" text */
     .stFileUploader small {
+        display: none !important;
+    }
+    /* Hide the first child text that says "upload" */
+    .stFileUploader > div:first-child {
+        display: none !important;
+    }
+    /* Hide any span that might contain "upload" */
+    .stFileUploader span:first-child {
         display: none !important;
     }
     
@@ -236,9 +243,12 @@ with col2:
     # empty for spacing
     pass
 
-# File uploader section - clean header
+# File uploader section - clean header only
 st.markdown('<p style="color: #000000; font-family: Calisto MT; font-size: 11pt; margin-bottom: 0.5rem;">Upload File</p>', unsafe_allow_html=True)
-uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
+
+# Use a container to wrap the file uploader and add custom text
+with st.container():
+    uploaded_file = st.file_uploader(" ", type=["csv", "xlsx", "xls"], label_visibility="collapsed")
 
 if uploaded_file is not None:
     try:
